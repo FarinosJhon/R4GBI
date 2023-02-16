@@ -1,7 +1,7 @@
 ---
 title: "Introducción a R"
 author: "Jhon Fariños"
-format: pdf
+format: html
 editor: visual
 ---
 
@@ -32,7 +32,7 @@ Las operaciones de matematicas, logica y de asignacion. $$
 \hat{x} = \frac{\Sigma_{i=1}^{n}{x_i}}{n}
 $$
 
-```{r vector}
+```{r vector, echo=FALSE}
 x = c(1:100)
 xi = sum(x)/length(x)
 xi
@@ -53,4 +53,52 @@ x1 = c(1:10, NaN, 10:-20, NaN, 27)
 x1i = sum(x1)/length(x1)
 x1i
 ```
+#Manipulación de Datos 
+
+Para la manipulación se utilizará la librería "Tidyverse".
+
+##El "echo=TRUE" O "echo=FALSE" sirve para que se vea o no se vea el código, para que se vea, TRUE es para que salga el código con su resultado, y FALSE es para que salga solo el resultado del código en le render.
+
+```{r tidy, echo=FALSE}
+library(tidyverse)
+
+plot(pressure)
+
+```
+
+#
+
+```{r tidy, echo=FALSE}
+library(tidyverse); library(ggplot2); 
+#data("diamonds")
+
+df = diamonds %>% ggplot(aes(x=depth, y=price, color = cut)) + geom_point(size=0.2) + facet_wrap(cut ~.)
+df
+```
+
+```{r tidy, echo=FALSE}
+library(tidyverse); library(ggplot2); 
+#data("diamonds")
+
+df = diamonds %>% ggplot(aes(x=depth, y=price, color = cut)) + geom_boxplot() + geom_jitter(size=0.1, alpha = 0.4) + facet_wrap(cut ~.)
+df
+```
+
+
+```{r tidy, echo=FALSE}
+library(tidyverse); library(ggplot2); 
+#data("diamonds")
+
+df = diamonds %>% ggplot(aes(x=cut, y=price, color = cut)) + geom_boxplot() + geom_jitter(size=0.1, alpha = 0.2) 
+df
+```
+
+```{r tidy, echo=FALSE}
+library(tidyverse); library(ggplot2); 
+#data("diamonds")
+
+df = diamonds %>% ggplot(aes(x=cut, y=price, color = cut)) + geom_boxplot() + geom_jitter(size=0.1, alpha = 0.2) + 
+df
+```
+
 
