@@ -1,0 +1,56 @@
+---
+title: "Introducción a R"
+author: "Jhon Fariños"
+format: pdf
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+## Operaciones Básicas.
+
+Las operaciones de matematicas, logica y de asignacion. $$
+\hat{x} = \frac{\Sigma_{i=1}^{n}{x_i}}{n}
+$$
+
+```{r vector}
+x = c(1:100)
+xi = sum(x)/length(x)
+xi
+```
+#Vectores con Datos Ausentes
+#Cuando se coloca 'na.rm=TRUE' entonces se quitan los datos ausentes del cálculo.
+
+```{r}
+x1 = c(1:10, NaN, 10:-20, NaN, 27)
+x1i = sum(x1, na.rm = TRUE)/length(x1)
+x1i
+
+```
+#No puede sacar el promedio porque hay datos ausentes. 
+
+```{r}
+x1 = c(1:10, NaN, 10:-20, NaN, 27)
+x1i = sum(x1)/length(x1)
+x1i
+```
+
