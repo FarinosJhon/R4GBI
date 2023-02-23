@@ -1,0 +1,54 @@
+---
+title: "Tarea who"
+author: "Jhon Fariños"
+format: html
+editor: visual
+---
+
+## Tarea
+
+Utilizando la data `who` que se puede cargar con `data("who")`. Esta tabla recoge datos sobre casos reportados de tuberculosis en el mundo. Construya un código para que se vea la siguiente figura. Que contiene:
+
+-   Datos de niñas y niños entre 0 y 14 años.
+
+-   Datos del año 1996 en adelante (1996 - 2012).
+
+-   Geometría de nube de puntos.
+
+-   Geometría de regresión lineal.
+
+-   Ecuación de la regresión de la regresión y el coeficiente de determinación.
+
+-   Coloración por años.
+
+Cargamos las librerías:
+
+```{r tidy, echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(ggpubr)
+library(ggpmisc)
+library(dplyr)
+
+```
+
+Cargamos la data para trabajar:
+
+```{r}
+data("who")
+help("who")
+```
+
+Escogemos los niños/as de 0 a 14 años:
+
+```{r edades}
+pr <- who %>% select("year", "new_sp_m014", "new_sp_f014" )
+prf= pr %>% filter(new_sp_m014 > 0)
+prm= prf %>% filter(new_sp_f014 > 0)
+prm
+```
+
+```{r gráfica, echo=TRUE}
+gf = who %>% ggplot(aes(x=new_sp_m014, y=new_sp_f014, color = factor(year))) + geom_point(size = 0.2) + facet_wrap(year ~. ,scales = "free") + geom_smooth(method = "lm", formula = y ~ x) + xlim(0,900) + ylim(0,1000) + labs(y= "Casos positivos de TB en niños de 0 a 14 años", x= "Casos positivos de TB en niños de 0 a 14 años") + stat_poly_eq(aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~")), formula = y~x, parse = TRUE, label.x.npc = 2.) 
+gf
+```
