@@ -97,7 +97,7 @@ df
 library(tidyverse); library(ggplot2); 
 #data("diamonds")
 
-df = diamonds %>% ggplot(aes(x=cut, y=price, color = cut)) + geom_boxplot() + geom_jitter(size=0.1, alpha = 0.2) + 
+df = diamonds %>% ggplot(aes(x=cut, y=price, color = cut)) + geom_boxplot() + geom_jitter(size=0.1, alpha = 0.2) + facet_wrap(clarity ~.)
 df
 ```
 

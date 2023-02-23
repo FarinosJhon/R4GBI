@@ -1,5 +1,5 @@
 ---
-title: "Tarea who"
+title: "T5_RGrafico"
 author: "Jhon Fariños"
 format: html
 editor: visual
@@ -36,10 +36,10 @@ Cargamos la data para trabajar:
 
 ```{r}
 data("who")
-help("who")
+
 ```
 
-Escogemos los niños/as de 0 a 14 años:
+Escogemos los niños/as positivos:
 
 ```{r edades}
 pr <- who %>% select("year", "new_sp_m014", "new_sp_f014" )
@@ -48,7 +48,16 @@ prm= prf %>% filter(new_sp_f014 > 0)
 prm
 ```
 
+Filtramos para que se muestre únicamente los niño/as menores de 14 años:
+
+```{r}
+prl=prm %>% filter(year>=1996)
+
+```
+
+Se grafican los resultados en rectas de regresión:
+
 ```{r gráfica, echo=TRUE}
-gf = who %>% ggplot(aes(x=new_sp_m014, y=new_sp_f014, color = factor(year))) + geom_point(size = 0.2) + facet_wrap(year ~. ,scales = "free") + geom_smooth(method = "lm", formula = y ~ x) + xlim(0,900) + ylim(0,1000) + labs(y= "Casos positivos de TB en niños de 0 a 14 años", x= "Casos positivos de TB en niños de 0 a 14 años") + stat_poly_eq(aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~")), formula = y~x, parse = TRUE, label.x.npc = 2.) 
+gf = prl %>% ggplot(aes(x=new_sp_f014, y=new_sp_m014, color = factor(year))) + geom_point(size = 0.2) + facet_wrap(year ~.) + geom_smooth(method = "lm", formula = y ~ x) + xlim(0,900) + ylim(0,1000) + labs(y= "Casos positivos de TB en niños de 0 a 14 años", x= "Casos positivos de TB en niñas de 0 a 14 años") + stat_poly_eq(aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~")), formula = y~x, parse = TRUE, label.x.npc = 0, label.y.npc =1000) 
 gf
 ```
